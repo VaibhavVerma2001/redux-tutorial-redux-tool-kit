@@ -1,0 +1,64 @@
+create userSlice then create store
+
+after creating store , wrap index.js using 
+new package npm i react-redux
+
+dispatch update function
+
+
+// 1 -- simply without async actions
+
+// export const userSlice = createSlice({
+//     // name of state
+//     name: 'user',
+//     // initial value of state
+//     initialState : {
+//         name: "vaibhav",
+//         email : "abc@example.com"
+//     },
+//     reducers: {
+//         // Actions
+//         // in update component we update user
+//         update :(state,action)=>{
+//             state.name = action.payload.name;
+//             state.email = action.payload.email;
+//         },
+//         // no  need to take action payload because there is only one user
+//         remove : (state)=>
+//             // make empty because no user
+//             state = {},
+//         addHello : (state,action)=>{
+//             state.name = "Hello " + action.payload.name;
+//         }
+//     }
+// });
+
+// // export actions
+// export const {update,remove,addHello} = userSlice.actions;
+
+
+how to use this in other components -
+
+  // complete user information
+  const user = useSelector((state)=>state.user);
+
+  // only name 
+  const name = useSelector((state)=>state.user.name);
+  
+  // dispatch update
+  const dispatch = useDispatch();
+
+  const handleDelete = ()=>{
+    dispatch(remove());
+  }
+
+  const handleUpdate = (e)=>{
+    e.preventDefault();
+    dispatch(update({name,email})); // name and email are payload
+  }
+
+
+
+// 2 -- with redux async actions like login and update or register etc
+
+2.1 -- using custom redux like UPDATE_SUCCESS, UPDATE_FAILURE
